@@ -1,0 +1,63 @@
+body{
+		position: relative; 
+}
+
+
+
+a:hover {
+	text-decoration: underline !important;
+	cursor: pointer !important;
+}
+
+a.dropdown-item:hover, a#dropdownMenuButton.btn.btn-secondary.dropdown-toggle:hover {
+	text-decoration: none !important;
+}
+
+
+
+
+@media screen and (max-width: 750px) {
+  /* comes into effect for screens less than or equal to 500 pixels */
+  
+}
+
+
+@media screen and (min-width: 751px) {
+  /* comes into effect for screens larger then 500 */
+
+	.logo {
+		width: 150; /*width of your image*/
+		height: 97px; /*height of your image*/
+		object-fit: fill;
+		margin-left: 10%;
+		margin-right: auto;
+		display: block;
+		margin-top: 10px;
+	}
+	
+	.container {
+		min-width: 500px;
+		max-width: 1300px;
+		height: auto;
+		width: auto;
+	}
+
+	.navbar-nav > li > .dropdown-menu a:hover { 
+			background-color: rgba(254, 40, 21, 0.2);
+			text-decoration: none;
+	}
+
+	.mr-auto .dropdown-menu {
+      left: auto !important;
+      right: 0px;
+
+    }
+
+	
+	
+}
+
+
+
+
+

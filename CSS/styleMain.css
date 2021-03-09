@@ -1,0 +1,180 @@
+body{
+		position: relative; 
+}
+
+
+
+a:hover {
+	text-decoration: underline !important;
+	cursor: pointer !important;
+}
+
+a.dropdown-item:hover, a#dropdownMenuButton.btn.btn-secondary.dropdown-toggle:hover {
+	text-decoration: none !important;
+}
+
+
+
+
+@media screen and (max-width: 750px) {
+  /* comes into effect for screens less than or equal to 500 pixels */
+  
+}
+
+
+@media screen and (min-width: 751px) {
+  /* comes into effect for screens larger then 500 */
+
+	.logo {
+		width: 150; /*width of your image*/
+		height: 97px; /*height of your image*/
+		object-fit: fill;
+		margin-left: 10%;
+		margin-right: auto;
+		display: block;
+		margin-top: 10px;
+	}
+	
+	.container {
+		min-width: 500px;
+		max-width: 1300px;
+		height: auto;
+		width: auto;
+	}
+
+	.navbar-nav > li > .dropdown-menu a:hover { 
+			background-color: rgba(254, 40, 21, 0.2);
+			text-decoration: none;
+	}
+
+	.mr-auto .dropdown-menu {
+      left: auto !important;
+      right: 0px;
+
+    }
+
+	.leftBox {
+		min-height: 700px;
+		max-height: 1000px;
+		min-width:	350px;
+		max-width:	350px;
+		height: auto;
+		width: auto;
+		float: left;
+		margin-top: 5px;
+	}
+
+	.people {
+		min-height: 350px;
+		max-height: 500px;
+		min-width:	140px;
+		max-width:	350px;
+		height: auto;
+		width: auto;
+
+		
+		border-radius: 3px;
+		margin-bottom: 15px;
+		box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+		background-color: rgba(108,117,125, 0.1);
+		color: black;
+	}
+
+	.news {
+
+		min-height: 350px;
+		max-height: 500px;
+		min-width:	140px;
+		max-width:	350px;
+		height: auto;
+		width: auto;
+
+		/*box-shadow: 1px 0 0 #6C757D;*/
+
+		color: black;
+		border-radius: 3px;
+		margin-bottom: 15px;
+		background:rgba(108,117,125, 0.1);
+		box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+	}
+
+	#header {
+		 text-align: center;
+	}
+
+	.rightSide {
+		max-height: 715px;
+		height: auto;
+		width: 100%;
+		border-radius: 3px;
+		margin-bottom: 15px;
+		margin-left: 10px;
+		margin-top: 5px;
+		box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+		background-color: rgba(108,117,125, 0.1);
+		color: black;
+		overflow-y: scroll;
+	}
+
+	.lower {
+		display: flex;
+		min-width: 500px;
+		max-width: 1300px;
+		height: auto;
+		width: auto;
+	}
+
+	#postDiv {
+		display: block;
+		margin-left: 20px;
+		margin-top: 10px;
+	}
+
+
+	#picTag {
+		width: 25px;
+		height: 25px;
+		float: left;
+		margin-right: 10px;
+	}
+
+	#nameTag {
+		color: black;
+		float: left;
+		margin-right: 5px;
+		
+	}
+
+	#timeTag {
+		color: black;
+		margin-top: 2px;
+	}
+
+	#imgTag {
+		max-height: 400px;
+		border-radius: 10px;
+		margin-left: 20px;
+	}
+
+	#textTag {
+		clear: both;
+		margin-left: 35px;
+		margin-top: 5px;
+	}
+
+	#loadMoreTag {
+		margin-left: 50%;
+		color: black;
+	}
+
+	#personProfile {
+		height: 40px;
+		margin-left: 5px;
+	}
+	
+}
+
+
+
+
+

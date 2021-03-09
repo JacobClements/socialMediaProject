@@ -1,0 +1,89 @@
+body{
+	position: relative; 
+}
+
+.title {
+	background-color: white;
+
+	height: auto;
+	text-align: center;
+	color: black;
+	font-size: 150%;
+	top: 30px;
+	font-weight: bold;
+}
+
+.logo {
+	width: 150; /*width of your image*/
+	height: 97px; /*height of your image*/
+	object-fit: fill;
+	margin-left: auto;
+    margin-right: auto;
+	display: block;
+	margin-top: 10px;
+}
+
+.container {
+	background-color: white;
+	min-height: 500px;
+	max-height: 800px;
+	min-width: 500px;
+	max-width: 1150px;
+	height: auto;
+	width: auto;
+	justify-content: center;
+}
+
+.loginForm {
+	position: relative; 
+	width: 50%;
+	left: 25%;
+	top: 10px;
+}
+
+.input-group {
+	position: relative;
+}
+
+.input-group2 {
+	position: relative;
+	top: 40px;
+	display: flex;
+	justify-content: center;
+	color: #343a40;
+
+}
+
+.signUp:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.forgotPassword:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.dot {
+	padding-left: 3%;
+	padding-right: 3%;
+}
+
+#password {
+	position: relative;
+	top: 10px;
+} 
+
+#loginButton {
+	position: relative;
+	top: 30px;
+	width: 100%;
+}
+
+#passVal {
+	top: 10px;
+}
+
+
+
+
