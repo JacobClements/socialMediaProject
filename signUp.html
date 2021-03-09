@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Social Media Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="CSS/bootstrap.min.css">
+  <link rel="stylesheet" href="CSS/styleSignUp.css">
+  <link href="CSS/loadingStyles.css" rel="stylesheet">
+  <link rel="icon" href="logo.png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+     <!-- Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+            <button type="button" class="btn-close close" data-dismiss="modal" id="close">
+            </button>
+          </div>
+          <div class="modal-body" id="words">
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="loginBtn">Login</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close1">Okay</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<div class="signup-form">
+    
+    <img class="logo" src="logo.png"> </img>
+    
+    <form onsubmit="checkUser(); return false;" method="post" id="form">
+		<h2>Sign Up</h2>
+		<p>Please fill in this form to create an account!</p>
+		<hr>
+        <div class="form-group">
+			<div class="row">
+				<div class="col"><input type="text" id = "firstname" class="form-control" name="first_name" placeholder="First Name" required="required"></div>
+				<div class="col"><input type="text" id = "lastname" class="form-control" name="last_name" placeholder="Last Name" required="required"></div>
+			</div>        	
+        </div>
+        <div class="form-group">
+        	<input type="email" id = "email" class="form-control" name="email" placeholder="Email" required="required">
+        </div>
+		<div class="form-group">
+            <input type="password" id = "pass1" class="form-control" name="password" placeholder="Password" required="required">
+        </div>   
+        <div class="form-group">
+			<label class="form-check-label"><input type="checkbox" required="required"> I accept the <a href="#" id="terms">Terms of Use</a> &amp; <a href = "#" id="privacy">Privacy Policy</a></label>
+		</div>
+		<div class="form-group">
+            <button  id="button" class="btn btn-primary btn-lg">Sign Up</button>
+        </div>
+    </form>
+	<div class="hint-text" style="color: white;">Already have an account? <a href="index.html">Login here</a></div>
+</div>
+
+
+<script src="toastr.js"> </script>
+<script> 
+
+/*
+ * These are event listeners for the clickable things on the screen
+*/
+document.getElementById('close').addEventListener("click", function() {
+    $('#errorModal').modal('hide');
+    //document.getElementById("form").reset();
+});
+document.getElementById('close1').addEventListener("click", function() {
+    $('#errorModal').modal('hide');
+    //document.getElementById("form").reset();
+});
+document.getElementById('loginBtn').addEventListener("click", function() {
+    window.location.href = 'index.html';
+});
+document.getElementById('terms').addEventListener("click", function() {
+    $('#errorModal').modal('show');
+    fillPopup("Terms And Conditions", "This is our terms and conditions!!!", false);
+});
+document.getElementById('privacy').addEventListener("click", function() {
+    $('#errorModal').modal('show');
+    fillPopup("Privacy Policy", "Blah Blah Blah", false);
+});
+
+
+var firstname = $('#firstname').val();
+var lastname = $('#lastname').val();
+var email = $('#email').val();
+var password = $('#pass1').val();
+
+document.getElementById('button').addEventListener("click", function() {
+    firstname = $('#firstname').val();
+    lastname = $('#lastname').val();
+    email = $('#email').val();
+    password = $('#pass1').val();
+
+    if (firstname == "" || lastname == "" || email == "" || password == "") {
+        toastr.error('Please fill everything in');
+    } 
+});
+
+function checkUser() { 
+    $.ajax({
+        url:'PHP/data.php',
+        type:'POST',
+        data:{
+            email: email,
+            password: password,
+            firstname: firstname,
+            lastname: lastname
+
+        },
+        success: function(res) {
+            res = String(jQuery.parseJSON(res));
+            console.log(res);
+
+            if (res == "noEmail") {
+                fillPopup("Warning", "Email already in use. Please log in or use new email.", true);
+                $('#errorModal').modal('show');
+            } else if (res == "error") {
+                toastr.error('There was an error in creating your account. Please try again.');
+            } else if (res == "success") {
+                console.log(res);
+                sessionStorage.setItem("email", email);
+                toastr.success('Log in successful');
+                $('body').append('<div style="" class="loading">Loading...</div>');
+                setTimeout(function(){ window.location.href = 'main.html'; }, 1000);
+            }
+
+        }
+    });
+}
+
+function fillPopup(title, words, isLogin) {
+    document.getElementById('exampleModalLongTitle').innerHTML = title;
+    document.getElementById('words').innerHTML = words;
+
+    if (isLogin) {
+        document.getElementById("loginBtn").style.visibility = "visible";
+    } else {
+        document.getElementById("loginBtn").style.visibility = "hidden";
+    }
+}
+   
+
+
+</script>
+</body
+
+</html>

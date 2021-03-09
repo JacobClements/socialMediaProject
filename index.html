@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Social Media Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="CSS/bootstrap.min.css">
+  <link rel="stylesheet" href="CSS/styleLogin.css">
+  <link href="CSS/loadingStyles.css" rel="stylesheet">
+  <link rel="icon" href="logo.png">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+ 
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+<div class="loginBox">
+
+</div>
+    <div class="container">
+
+     <img class="logo" src="logo.png"> </img>
+      <div class="title"> Log on to Social Media </div>
+    
+      <form class="loginForm" method="post">
+      
+        <div class="input-group">
+          <input id="email" type="text" class="form-control" name="email" placeholder="Email">
+        </div>
+        
+        
+        <div class="input-group">
+          <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+        
+
+        <div class="input-group">
+            <button id="loginButton" type="button" class="btn btn-outline-dark">LOGIN</button>
+        </div>
+
+        <div class="input-group2">
+            <div class="forgotPassword">Forgot Password?</div>
+            <div class="dot" >&#9900;</div>
+            <div class="signUp" >Sign Up </div>
+        </div>
+      </form>
+
+       
+    </div>
+</div>
+
+<script src="toastr.js"> 
+
+</script>
+
+
+<script> 
+
+    sessionStorage.setItem("email", "");
+
+    //Makes loading screen appear
+    $( "#loginButton" ).click(function() {
+          
+          email = $('#email').val();
+          var password = $('#password').val();
+          var emailValid = false;
+          var passValid = false;
+
+            if (email == "" || !email.includes('@')) {
+	            $('#email').removeClass("form-control").addClass("form-control is-invalid");
+                toastr.error('You need a valid email');
+            } else {
+                $('#email').removeClass("form-control is-invalid").addClass("form-control is-valid");
+                emailValid = true;
+            }
+            if (password == "") {
+	            $('#password').removeClass("form-control").addClass("form-control is-invalid");
+                toastr.error('Please enter a password');
+            } else {
+                $('#password').removeClass("form-control is-invalid").addClass("form-control is-valid");
+                passValid = true;
+            }
+
+            if (emailValid && passValid) {
+                $.ajax({
+                    url:'PHP/checkUser.php',
+                    type:'POST',
+                    data:{
+                        email: email,
+                        password: password
+                    },
+                    success:function(res){
+                        res = jQuery.parseJSON(res);
+                        if (res == "success") {
+                            console.log(res);
+                            sessionStorage.setItem("email", email);
+                            $('#email').removeClass("form-control is-invalid").addClass("form-control is-valid");
+                            $('#password').removeClass("form-control is-invalid").addClass("form-control is-valid");
+                            toastr.success('Log in successful');
+                            $('body').append('<div style="" class="loading">Loading...</div>');
+                            setTimeout(function(){ window.location.href = 'main.html'; }, 1000);
+                            
+                        } else if (res == "wrongPassword") {
+                            console.log(res);
+                            $('#password').removeClass("form-control is-invalid").addClass("form-control is-invalid");
+                            toastr.error('Wrong Password');
+
+                        } else if (res == "fail") {
+                            console.log(res);
+                            $('#email').removeClass("form-control").addClass("form-control is-invalid");
+                            toastr.error('No email found');
+                        }
+
+                    }
+                });
+            }
+
+
+    });
+
+    //Forgot password
+    window.location.href = '#';
+
+    //Set up account
+    $( ".signUp" ).click(function() {
+       window.location.href = 'signUp.html';
+       return false;
+    });
+
+</script>
+</body
+
+</html>

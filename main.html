@@ -1,0 +1,507 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Social Media Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="CSS/bootstrap.min.css">
+  <link rel="stylesheet" href="CSS/styleMain.css">
+  <link href="CSS/loadingStyles.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+  <link rel="icon" href="logo.png">
+
+</head>
+<body onload="loadUp()">
+
+
+     <!-- Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Warning</h5>
+            <button type="button" class="btn-close close" data-dismiss="modal" id="close">
+            </button>
+          </div>
+          <div class="modal-body">
+            You need to log in. No user found
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close1">Okay</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Posting Modal -->
+    <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New Post</h5>
+            <button type="button" class="btn-close close" data-dismiss="modal" >
+              
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="postFormID" method="POST" enctype="multipart/form-data">
+              <div class="form-group">
+                <label for="title-name" class="col-form-label">Title:</label>
+                <input type="text" class="form-control" id="title-name">
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Message:</label>
+                <textarea class="form-control" id="message-text"></textarea>
+              </div>
+                <div class="form-group" style="margin-top: 5px">
+                    <label for="fileToUpload">Upload a picture </label>
+                    <input type="file" accept='image/*' class="form-control-file" id="fileToUpload" name="file">
+                 </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="submitBtnID" type="button" class="btn btn-primary">Post</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+
+        <!-- This is the navbar code -->
+        <div class="navbar navbar-expand-sm bg-light navbar-light ">
+          <!-- Brand/logo -->
+          <a class="navbar-brand" href="#">
+            <img src="logo.png" alt="logo" style="width:40px;">
+           </a>
+
+  
+          <!-- Links -->
+          <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">People</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">Message</a>
+            </li>
+            
+            <li class="nav-item">
+              <button type="button" id = "postBtn" class="btn btn-danger">Post</button>
+            </li>
+          </ul>
+
+
+          <ul class="navbar-nav ms-auto">
+            <li class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img id = "profilePicImg" src="profilePic/profile.png" class="rounded-circle" height="22"/>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" id="name" >Name</a>
+                <a class="dropdown-item" href="profile.html">My Profile</a>
+                <a class="dropdown-item" href="#">Settings</a>
+                <a class="dropdown-item disabled" href="#">Developer</a>
+
+                <!-- Divider -->
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" id="logout" href="#">Log Out</a>
+            </div>
+            </li>
+
+          </ul>
+        </div>
+
+        <div class="lower">
+            <!-- This is the left box -->
+            <div class="leftBox"> 
+
+                <!-- This the for people you many know -->
+                <div class="people"> 
+                    <div id="header"><small class="text-muted">People You May Know</small><hr/></div>
+                    <div id="">
+                        <img id="personProfile" src="profilePic/profile.png" class="rounded-circle"/>
+                        <a id="personName"> Name 1</a>
+                    <hr/></div>
+                    <div id="">
+                        <img id="personProfile" src="profilePic/profile.png" class="rounded-circle"/>
+                        <a id="personName"> Name 2</a>
+                    <hr/></div>
+                    <div id="">
+                        <img id="personProfile" src="profilePic/profile.png" class="rounded-circle"/>
+                        <a id="personName"> Name 3</a>
+                    <hr/></div>
+                    <div id="">
+                        <img id="personProfile" src="profilePic/profile.png" class="rounded-circle"/>
+                        <a id="personName"> Name 4</a>
+                    </div>
+                </div>
+
+
+                <!-- This for the news box -->
+                <div class="news"> 
+                    <div id="header"><small class="text-muted">Whats Going on in the World</small><hr/></div>
+                </div>
+            </div>
+
+            <!-- This is the feed -->
+            <div class="rightSide"> 
+                
+            
+            </div>
+        </div>
+    </div>
+
+
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+  <script src="toastr.js"> </script>
+  <script> 
+    
+    var email = sessionStorage.getItem("email");
+    var age = null;
+    var name = "";
+    var postIndex = 0;
+    var profilePic = "";
+    var readyToSend = true;
+
+    /*
+     * Handles the click of buttons
+     */
+    document.getElementById('close').addEventListener("click", function() {
+        window.location.href = 'index.html';
+    });
+
+    document.getElementById('close1').addEventListener("click", function() {
+        window.location.href = 'index.html';
+    });
+
+    $("#postBtn").click( function() {
+        $('#postModal').modal('show');
+    });
+   
+    $( "#logout" ).click(function() {
+        sessionStorage.setItem("email", "");
+        window.location.href = 'index.html';
+    });
+
+    //sends user to desired profile Page from the people you may know page
+    $('#personName').click(function() {
+        alert();
+    });
+
+    //sends user to desired profile Page from the feed
+    $('.rightSide').on("click", "a#nameTag", function() {
+        alert();
+    });
+
+    // Like button click
+    $('.rightSide').on("click", "img#heart", function() {
+      
+      var unlike = "likes/unlikedHeart.png";
+      var liked = "likes/likedHeart.png";
+      var animation = "likes/heartAnimation.gif";
+      var num = $(this).attr('class').match(/\d+/)[0];
+      var postID = $(".post"+num).attr('data-value');
+      var userEmail = email;
+      var variable = parseInt($("#likeNumber" + num).html(), 10);
+
+      if ($(this).attr('src') == unlike) {
+        $(this).attr('src', animation);
+        liking(userEmail, postID, true);
+        $("#likeNumber" + num).html(variable+1);
+                
+      } else if ($(this).attr('src') == animation || $(this).attr('src') == liked) {
+        $(this).attr('src', unlike);
+        liking(userEmail, postID, false);
+        $("#likeNumber" + num).html(variable-1);
+      } 
+    });
+
+    //submit is click when creating a post
+    $('#submitBtnID').click(function(event) {
+      //Create Form object
+      var data = new FormData();
+      var file = $('#fileToUpload').prop('files')[0];
+      var fileName = null;
+      //Adds email to form array
+      data.append('file' , file);
+
+      //get Title and message fields
+      var title = $('#title-name').val();
+      var text = $('#message-text').val();
+
+      if (title != "" && text != "") {
+        if (file != null) {
+          uploadFile(data);
+        }
+
+        if (readyToSend) {
+          //Post the data to the database
+          if (file != null) {
+            fileName = "photos/" + $('#fileToUpload').prop('files')[0].name;
+          }
+          
+          sendPost(title, text, fileName);
+        }
+      } else {
+        toastr.error('Please fill in the title and the message box');
+      }
+
+    });
+
+    //Runs on start up
+    function loadUp() {
+        if (email == "") {
+            $('#errorModal').modal('show');
+         
+        }
+        getName();
+        getFivePosts();  
+    }
+
+    //Trys to upload a picture
+    function uploadFile(formData) {
+        $.ajax({
+            url: 'PHP/upload.php',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            async: false,
+            contentType: false,
+            success: function(res){
+              res = jQuery.parseJSON(res);  
+              //console.log(res);
+
+              var returnVarible = false;
+
+              if (res == "wrongType") {
+                readyToSend = false;
+                toastr.error('Wrong file type. Please select an imageo or video of type: jpg, jpeg, png, gif, mp4');
+              } else if (res == "tooBig") {
+                readyToSend = false;
+                toastr.error('Image is too large. Max size 40M');
+              } else if (res == "exists") {
+                //toastr.warning('Picture already being used');
+              } //else if (res == "success") {
+                //toastr.success('Successfully stored your image');
+              //}
+            },
+            error: function(res) {
+              res = jQuery.parseJSON(res);  
+              console.log(res);              
+            } 
+        });
+    }
+
+    //This function returns firstname of user from the database
+    function getName(){
+        $.ajax({
+            url:'PHP/loadUser.php',
+            type:'POST',
+            data:{
+                email: email
+            },
+            success: function(res) {
+                res = String(jQuery.parseJSON(res));
+                name, document.getElementById("name").innerHTML = res.split("*&*").slice(0,2).join(" ");
+                profilePic = res.split("*&*")[2];
+                if (profilePic != "") {
+                    document.getElementById("profilePicImg").src = profilePic;
+                }
+            }
+        });
+    }
+
+    //Creates all the html for a post
+    function appendPost(title, text, picture, personName, time, profilePic, likes, postID, index, isAlreadyLiked){
+        //Parent DIV tag to hold all of POST
+        var post = document.createElement("DIV");
+        post.setAttribute("id", "postDiv");
+        post.setAttribute("class", "post" + index);
+        post.setAttribute("data-value", postID);
+        
+        //This is the profile icon
+        var picTag = document.createElement("IMG");
+        picTag.setAttribute("class", "rounded-circle");
+        picTag.setAttribute("id", "picTag");
+        if (profilePic != null){
+            picTag.setAttribute("src", profilePic);
+        } else {
+            picTag.setAttribute("src", "profilePic/profile.png");  // Sets profile image is they don't have any
+        }
+        post.append(picTag);       
+
+        // The persons name
+        var nameTag = document.createElement("A");
+        nameTag.setAttribute("id", "nameTag");
+        nameTag.setAttribute("text-decoration", "none");
+        nameTag.innerHTML = personName;
+        post.append(nameTag);
+
+        //time posted
+        var timeTag = document.createElement("SMALL");
+        timeTag.setAttribute("id", "timeTag");
+        timeTag.setAttribute("class", "text-muted");
+        timeTag.innerHTML = time;
+        post.append(timeTag);
+
+        //title
+        var titleTag = document.createElement("H5");
+        titleTag.setAttribute("id", "titleTag");
+        titleTag.innerHTML = title;
+        post.append(titleTag);
+
+        //like button
+        var likeTag = document.createElement("IMG");
+        likeTag.setAttribute("id", "heart");
+        likeTag.setAttribute("class", "heart" + index);
+        if (isAlreadyLiked == 0) {
+          likeTag.setAttribute("src", "likes/unlikedHeart.png");
+        } else {
+          likeTag.setAttribute("src", "likes/likedHeart.png");
+        }
+        likeTag.setAttribute("height", "50px");
+        likeTag.setAttribute("clear", "both");
+        post.append(likeTag);
+
+        var likeNumber = document.createElement("SMALL");
+        likeNumber.setAttribute("id", "likeNumber" + index);
+        likeNumber.setAttribute("for", "likeTag");
+        likeNumber.setAttribute("class", "text-muted");
+        likeNumber.innerHTML = likes;
+        post.append(likeNumber);
+
+        //Picture
+        if (picture != "" && picture != null) {
+          if (picture.split('.')[1] == "mp4"){
+            var imgTag = document.createElement("VIDEO");
+            
+            imgTag.setAttribute("id", "imgTag");
+            imgTag.setAttribute("src", picture);
+            imgTag.autoplay = true;
+            imgTag.controls = true;
+            imgTag.muted = true;
+            post.append(imgTag); 
+
+          } else {
+            var imgTag = document.createElement("IMG");
+            imgTag.setAttribute("id", "imgTag");
+            imgTag.setAttribute("src", picture);
+            post.append(imgTag); 
+          }
+        }
+
+        //text
+        var textTag = document.createElement("DIV");
+        textTag.setAttribute("id", "textTag");
+        textTag.innerHTML = text;
+        post.append(textTag);
+
+        var bar = document.createElement("HR");
+        post.appendChild(bar);
+        
+
+        // Insert post at the end of the feed or front depending on the situation
+        $(".rightSide").append(post);
+    }
+
+    //Function called by loadmore BUTTON
+    function loadMore(){
+        document.getElementById("loadMoreTag").remove();
+        getFivePosts();
+    }
+
+    //Gets latest 5 posts
+    function getFivePosts(){
+        $.ajax({
+            url: 'PHP/loadPosts.php',
+            type: 'POST',
+            data: {
+                postIndex: postIndex,
+                email: email
+            },
+            success: function(res){
+                res = jQuery.parseJSON(res);
+                console.log(res[0].isLiked);
+                
+                //loop over array received from php file and create a div for each post
+                for (var i = 0; i < res.length; i++){                                                                                                      //This the number of likes not the userID
+                  appendPost(res[i].title , res[i].text, res[i].picture, res[i].firstname + " " + res[i].lastname,  res[i].timeCreated , res[i].profilePic, res[i].Users_userId, res[i].postID, postIndex, res[i].isLiked);
+                  postIndex++;
+                } 
+                
+                //Makes the load more button after posts are loaded
+                var loadMoreTag = document.createElement("BUTTON");
+                loadMoreTag.setAttribute("id", "loadMoreTag");
+                loadMoreTag.setAttribute("class", "btn btn-outline-secondary");
+                loadMoreTag.setAttribute("onclick", "loadMore()");
+                loadMoreTag.innerHTML = "Load More";
+                $(".rightSide").append(loadMoreTag);
+
+            }
+        });  
+    }
+
+    //Sends user post
+    function sendPost(title, message, fileName) {
+      $.ajax({
+          url:'PHP/sendPost.php',
+          type:'POST',
+          data:{
+              email: this.email,
+              title: title,
+              message: message,
+              filename: fileName
+          },
+          success: function(res) {
+              res = String(jQuery.parseJSON(res));
+              console.log(res);
+
+              if (res == "success") {
+                $("#postModal").modal("hide");
+                document.getElementById("fileToUpload").value = "";
+                document.getElementById("message-text").value = "";
+                document.getElementById("title-name").value = "";
+
+                toastr.success('Post was successfully submitted');
+              } else if (res == "fail") {
+                toastr.error('Something went wrong. Could not create post. Please try again');
+              }
+          }
+      });
+    }
+  
+    //Sends to database the like or dislike
+    function liking(email, postID, isGood) {
+      console.log(email + " " + postID + " " + isGood);
+
+      $.ajax({
+        url: "PHP/liking.php",
+        type: "POST",
+        data: {
+          email: email,
+          postID: postID,
+          isGood: isGood
+        },
+        success: function(res) {
+          res = jQuery.parseJSON(res);
+          console.log(res);
+          
+        }
+      });
+    }
+
+  </script>
+</body>
+
+</html>

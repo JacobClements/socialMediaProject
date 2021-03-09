@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Social Media Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="CSS/bootstrap.min.css">
+  <link rel="stylesheet" href="CSS/styleProfile.css">
+  <link href="CSS/loadingStyles.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+  <link rel="icon" href="logo.png">
+
+</head>
+<body onload="loadUp()">
+
+
+     <!-- Modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Warning</h5>
+            <button type="button" class="btn-close close" data-dismiss="modal" id="close">
+            </button>
+          </div>
+          <div class="modal-body">
+            You need to log in. No user found
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close1">Okay</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="container">
+
+        <!-- This is the navbar code -->
+        <div class="navbar navbar-expand-sm bg-light navbar-light ">
+          <!-- Brand/logo -->
+          <a class="navbar-brand" href="#">
+            <img src="logo.png" alt="logo" style="width:40px;">
+           </a>
+
+  
+          <!-- Links -->
+          <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">People</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">Message</a>
+            </li>
+
+          </ul>
+
+
+          <ul class="navbar-nav ms-auto">
+            <li class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img id = "profilePicImg" src="profilePic/profile.png" class="rounded-circle" height="22"/>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" id="name" >Name</a>
+                <a class="dropdown-item" href="profile.html">My Profile</a>
+                <a class="dropdown-item" href="#">Settings</a>
+                <a class="dropdown-item disabled" href="#">Developer</a>
+
+                <!-- Divider -->
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" id="logout" href="#">Log Out</a>
+            </div>
+            </li>
+
+          </ul>
+        </div>
+
+        <div class="lower">
+            <!-- This is the left box -->
+            <div class="leftBox"> 
+
+            <!-- This is the feed -->
+            <div class="rightSide"> 
+                
+            
+            </div>
+        </div>
+    </div>
+
+
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+  <script src="toastr.js"> </script>
+  <script> 
+    
+  var email = sessionStorage.getItem("email");
+
+  document.getElementById('close').addEventListener("click", function() {
+      window.location.href = 'index.html';
+  });
+
+  document.getElementById('close1').addEventListener("click", function() {
+      window.location.href = 'index.html';
+  });
+  
+  //Runs on start up
+  function loadUp() {
+  if (email == "") {
+      $('#errorModal').modal('show');
+    
+  }
+  
+  getName(); 
+  }
+
+  function getName(){
+        $.ajax({
+            url:'PHP/loadUser.php',
+            type:'POST',
+            data:{
+                email: email
+            },
+            success: function(res) {
+                res = String(jQuery.parseJSON(res));
+                name, document.getElementById("name").innerHTML = res.split("*&*").slice(0,2).join(" ");
+                profilePic = res.split("*&*")[2];
+                if (profilePic != "") {
+                    document.getElementById("profilePicImg").src = profilePic;
+                }
+            }
+        });
+    }
+  
+
+  </script>
+</body
+
+</html>
